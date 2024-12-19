@@ -1,12 +1,14 @@
 import requests
-import json
 
-client_id = 'UT6CH9LEKVBG3DDPEHVU0JFJBOKLQ1QQKNU8COQA0P2DVRLAHB9TU1MUVN8OSKKH'
-client_secret = 'IAQ1FSQKE7MEIEPIPCV6RTK5UAHTJ7TEG0DQDQEOM9GCM8TNRAPLFG073AI1KNLF'
 
-REDIRECT_URI = ''
-state_value = ''
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
+
+client_id = os.getenv('CLIENT_ID')
+client_secret = os.getenv('CLIENT_SECRET')
+redirect_uri = os.getenv('REDIRECT_URI')
 
 def get_auth_code():
     """получение ссылки, на которую надо перейти для копирования auth_code"""
@@ -17,7 +19,7 @@ def get_auth_code():
 def get_token():
     """ получение токена """
     redirect_uri = 'https://github.com/AlinaDavydenko/parsing_vacancies_hh.ru'
-    auth_code = 'IBH00RN40NRINM7SQ2VMLN63BOL50ALGHPFHN47UGRABKUS98G01IRP8SV9I4MQ5'
+    auth_code = 'UH51LESVF3M6VUI45AM56G89N5D2POCIM47RA9F9IV5HA2PDO5H0FP6664R8RL99'
 
     oauth_url = "https://hh.ru/oauth/token"
     body = {
@@ -26,21 +28,14 @@ def get_token():
         'client_secret': client_secret,
         'code': auth_code,
         'redirect_uri': redirect_uri
-    }
+        }
 
     response = requests.post(oauth_url, data=body)
-
-    tokens = response.json()  # получаем токен
-    return tokens
-
-
-def get_data_from_tokens(tokens):
-    """ получение данных с tokens """
-    access_token = tokens['access_token']
-    token_type = tokens['token_type']
-    refresh_token = tokens['refresh_token']
-    expires_in = tokens['expires_in']
-    return access_token, token_type, refresh_token, expires_in
+    if response.status_code == 200:
+        tokens = response.json()  # получаем токен
+        return tokens
+    else:
+        return f"Request failed with status code: {response.status_code}"
 
 
 def get_access_token(tokens):
@@ -68,14 +63,13 @@ def get_vacancies(city, number_of_city, vacancy, page, access_token):
 
 
 # получаем ссылку
-ssilka = get_auth_code()
-print(ssilka)
+# ssilka = get_auth_code()
+# print(ssilka)
 
 # получение токена
 # tokens_ = get_token()
 # print(tokens_)
 
-# get_tokens = get_access_token(tokens_)
-# print(get_tokens)
-vacanc = get_vacancies('Москва', 1, 'Python', 1, 'USERPFE91TI1JRUMDN24S7G7SJ9LTQSHSP00LC313UIIVD0QVRUOGJQLOPKRBBV2')
-print(vacanc)
+# vacanc = get_vacancies('Москва', 1, 'Python', 1, 'USERPFE91TI1JRUMDN24S7G7SJ9LTQSHSP00LC313UIIVD0QVRUOGJQLOPKRBBV2')
+# pprint.pp(vacanc)
+# print(vacanc)
