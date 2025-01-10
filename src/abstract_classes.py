@@ -14,3 +14,18 @@ class ParsingData(ABC):
     @abstractmethod
     def parsing_data(self):
         pass
+
+
+class ABCWorkWithFile(ABC):
+    """ абстрактный класс для класса WorkWithFile"""
+    @abstractmethod
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def set_dataset_for_class(self):
+        pass
+
+    @abstractmethod
+    def get_vacancy_from_file(self):
+        pass
