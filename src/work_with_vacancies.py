@@ -1,5 +1,5 @@
 import pandas as pd
-# import json
+import json
 from pandas import DataFrame
 pd.set_option('display.max_columns', None)
 
@@ -18,15 +18,16 @@ class Vacancies:
     dataset: dict
     df_categories: DataFrame
 
-    def __init__(self, dataset, vacancy_name: str, vacancy_link: str, salary: str, metro: str):
+    def __init__(self, dataset, top_n_vacancy: int, vacancy_name: str, vacancy_link: str, salary: int, metro: str):
         """ инициализация элементов проверки """
         self.dataset = dataset
         self.vacancy_name = vacancy_name
         self.vacancy_link = vacancy_link
         self.salary = salary
         self.metro = metro
+        self.top_n_vacancy = top_n_vacancy
 
-    def dataset_appears(self):
+    def dataset_setter(self):
         Vacancies.dataset = self.dataset
 
     @classmethod
@@ -43,6 +44,11 @@ class Vacancies:
              normalize_address['city'], normalize_address['metro.station_name']],
             sort=False, axis=1)
         return cls.df_categories
+
+    def top_n_vacancy(self):
+        """ выводит топ N вакансий """
+        top_n_vacancies = Vacancies.df_categories.head(self.top_n_vacancy)
+        return top_n_vacancies
 
     def salary_search(self):
         """ выбор по зарплате, от какой зп смотреть, и сортировка от меньшего к большему """
@@ -66,23 +72,19 @@ class Vacancies:
 
 
 # Датасет = получение данных из файла и записывание данных в новый файл
-# with open('../data/data.json', 'r', encoding='utf-8') as json_file:
-#     dataset = json.load(json_file)
-#
-#
-# df = pd.DataFrame(dataset['items'])
-# # print(df)
-#
-# df1 = df[['name', 'apply_alternate_url', 'address', 'area', 'salary']]
-# # print(df1)
-#
-# normalize_salary = pd.json_normalize(df1['salary'])
-# normalize_area = pd.json_normalize(df1['area'])
-# normalize_address = pd.json_normalize(df1['address'])
-#
-# concat_df1 = pd.concat(
-#     [df1['name'], df1['apply_alternate_url'], normalize_salary['from'], normalize_salary['to'],
-#      normalize_address['city'], normalize_address['metro.station_name']],
-#     sort=False, axis=1)
-#
-# print(concat_df1)
+with open('../data/data.json', 'r', encoding='utf-8') as json_file:
+    datasets = json.load(json_file)
+
+mydata = Vacancies(datasets,
+                   10,
+                   'Директор по продажам',
+                   'https://hh.ru/applicant/vacancy_response?vacancyId=115274317',
+                   500000,
+                   'Бауманская')
+mydata.dataset_setter()
+mydata.show_vacancies()
+
+# print(Vacancies.dataset)
+# print(Vacancies.df_categories)
+mydata.salary_search()
+print()
