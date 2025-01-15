@@ -6,6 +6,7 @@ from src.hh_ru_parsing_data import HeadHunterAPI
 
 from src.abstract_classes import ABCWorkWithFile
 
+# получаем датасет для добавление в класс (потом датасет будет с hh_ru_parsing...
 hh_vacancies = HeadHunterAPI('Moscow', 1, 1, 'Developer')
 hh_vacancies.get_params()
 dataset = hh_vacancies.parsing_data()
@@ -28,7 +29,6 @@ class WorkWithFile(ABCWorkWithFile):
     def set_dataset_for_class(self):
         """ записывет data_set на уровне класса"""
         WorkWithFile.data_set = self.data_set
-        print('функция set_dataset_for_class')
 
     # блок функций для добавления в файлы
     @classmethod
@@ -36,7 +36,6 @@ class WorkWithFile(ABCWorkWithFile):
         """ функция добавляет данные формата json в файл"""
         with open(cls.data_json, 'w', encoding='utf-8') as json_file:
             json.dump(cls.data_set, json_file, ensure_ascii=False, indent=4)
-        print('функция add_to_file')
 
     # блок функций для чтения из файла
     # определяем словарь вакансий для класса
@@ -45,7 +44,6 @@ class WorkWithFile(ABCWorkWithFile):
         """ чтение json файла """
         with open(cls.data_json, 'r', encoding='utf-8') as json_file:
             cls.info_about_vacancies = json.load(json_file)
-        print(cls.info_about_vacancies)
 
     @classmethod
     def return_vacancies(cls):
@@ -79,15 +77,7 @@ a.add_to_file()
 a.read_data_json()
 
 a.return_vacancies()
-# print(a)
 
-# print(dataset)
 a.get_vacancy_from_file()
-# a.return_vacancies()
-print(a)
-# a.remove_from_file()
 
-# with open(path_to_data_json, 'r', encoding='utf-8') as json_file:
-#     info_about_vacancies = json.load(json_file)
-#
-# print(info_about_vacancies)
+print(a.return_vacancies())
