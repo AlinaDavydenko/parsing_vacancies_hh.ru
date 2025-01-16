@@ -45,7 +45,7 @@ class Vacancies:
             sort=False, axis=1)
         return cls.df_categories
 
-    def top_n_vacancy(self):
+    def get_top_n_vacancy(self):
         """ выводит топ N вакансий """
         top_n_vacancies = Vacancies.df_categories.head(self.top_n_vacancy)
         return top_n_vacancies
@@ -87,4 +87,5 @@ mydata.show_vacancies()
 # print(Vacancies.dataset)
 # print(Vacancies.df_categories)
 mydata.salary_search()
-print()
+print(mydata.get_top_n_vacancy())
+# print(Vacancies.dataset)
