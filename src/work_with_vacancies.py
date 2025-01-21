@@ -11,8 +11,8 @@ class Vacancy:
         """ инициализация элементов проверки """
         self.vacancy_name = vacancy_name
         self.vacancy_link = vacancy_link
-        self.salary = salary
         self.area = area
+        self.__validate_salary(salary)
 
     def __validate_salary(self, salary):
         """ валидация по зарплате """

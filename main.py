@@ -14,7 +14,11 @@ vacancies = hh_vacancies.parsing_data()
 # блок кода WorkWithFile
 g_vacancies = WorkWithFile()
 g_vacancies.add_to_file(vacancies)  # добавляем в файл
-vacancies_for_vacancy = g_vacancies.read_data_json()  # формируем объекты для класса Vacancy
+g_vacancies.read_data_json()  # формируем объекты для класса Vacancy
+
+for vacancy in g_vacancies.info_about_vacancies:
+    print(vacancy)
+
 
 # блок кода Vacancy
-vac = Vacancy('Python', '', 20000, '')
+# vac = Vacancy('Python', '', 20000, '')
