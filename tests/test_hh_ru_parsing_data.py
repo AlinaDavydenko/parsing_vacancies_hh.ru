@@ -4,8 +4,6 @@ import unittest
 
 from unittest.mock import Mock, patch
 
-import pytest
-
 from src.hh_ru_parsing_data import HeadHunterAPI
 
 # тестируем класс HeadHunterAPI

@@ -23,9 +23,13 @@ class ABCWorkWithFile(ABC):
         pass
 
     @abstractmethod
-    def set_dataset_for_class(self):
+    def add_to_file(self, vacancies):
         pass
 
     @abstractmethod
-    def get_vacancy_from_file(self):
+    def read_data_json(self):
+        pass
+
+    @abstractmethod
+    def return_vacancies(self):
         pass
