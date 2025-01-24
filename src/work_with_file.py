@@ -4,11 +4,6 @@ from src.work_with_vacancies import Vacancy
 
 from src.abstract_classes import ABCWorkWithFile
 
-# получаем датасет для добавление в класс (потом датасет будет с hh_ru_parsing...
-# hh_vacancies = HeadHunterAPI('Moscow', 1, 1, 'Developer')
-# hh_vacancies.get_params()
-# dataset = hh_vacancies.parsing_data()
-
 
 class WorkWithFile(ABCWorkWithFile):
     """ класс для работы с файлами (dataset из класса HeadHunterAPI) """

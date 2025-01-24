@@ -7,7 +7,7 @@ class Vacancy:
     dataset: dict
     df_categories: DataFrame
 
-    def __init__(self, vacancy_name: str, vacancy_link: str, salary: int, area: str):
+    def __init__(self, vacancy_name: str, vacancy_link: str, salary, area: str):
         """ инициализация элементов проверки """
         self.vacancy_name = vacancy_name
         self.vacancy_link = vacancy_link

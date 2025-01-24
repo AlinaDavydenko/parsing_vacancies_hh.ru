@@ -33,6 +33,6 @@ if __name__ == "__main__":
     is_top_n_vacancy = input(f'Вывести топ {top_n_vacancy} вакансий? (Y/N):')
     if is_top_n_vacancy.lower() == 'y':
         df = pd.DataFrame(g_vacancies.info_about_vacancies)
-        print(df.head(10))
+        print(df.head(top_n_vacancy))
     else:
         print('Вакансии не выведены.')
